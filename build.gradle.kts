@@ -1,27 +1,39 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
+plugins {
+    application
+    kotlin("jvm") version "1.5.31"
 
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.70")
-    }
+    id("io.gitlab.arturbosch.detekt") version "1.19.0-RC1"
+}
+
+group = "xyz.luan.test"
+version = "0.1.0"
+
+application {
+    mainClass.set("xyz.luan.test.MainKt")
 }
 
 repositories {
     mavenCentral()
+    maven("https://dl.bintray.com/kotlin/kotlin-eap")
+    maven("https://kotlin.bintray.com/kotlinx")
 }
 
-plugins {
-    id("io.gitlab.arturbosch.detekt") version "1.19.0-RC1"
-    kotlin("jvm") version "1.5.31"
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.languageVersion = "1.5"
+        kotlinOptions.apiVersion = "1.5"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.languageVersion = "1.5"
+        kotlinOptions.apiVersion = "1.5"
+    }
 }
 
-apply {
-    plugin("kotlin")
-    plugin("application")
-}
-
-configure<ApplicationPluginConvention> {
-    mainClassName = "xyz.luan.test.MainKt"
+detekt {
+    toolVersion = "1.17.1"
+    source = files("src/main/kotlin", "test/main/kotlin")
+    parallel = true
+    config = files("src/main/resources/detekt.yml")
 }
