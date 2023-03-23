@@ -1,8 +1,8 @@
 plugins {
     application
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.7.20"
 
-    id("io.gitlab.arturbosch.detekt") version "1.19.0-RC1"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
 }
 
 group = "xyz.luan.test"
@@ -18,21 +18,8 @@ repositories {
     maven("https://kotlin.bintray.com/kotlinx")
 }
 
-tasks {
-    compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.languageVersion = "1.5"
-        kotlinOptions.apiVersion = "1.5"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
-        kotlinOptions.languageVersion = "1.5"
-        kotlinOptions.apiVersion = "1.5"
-    }
-}
-
 detekt {
-    toolVersion = "1.17.1"
+    toolVersion = "1.22.0"
     source = files("src/main/kotlin", "test/main/kotlin")
     parallel = true
     config = files("src/main/resources/detekt.yml")
