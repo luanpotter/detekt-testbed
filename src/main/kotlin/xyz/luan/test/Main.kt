@@ -1,8 +1,8 @@
 package xyz.luan.test
 
+import xyz.luan.test.foo.Foo
+
 fun main() {
-    val xyz = "a"
-    val luan = "b"
-    val test = "c"
-    println("Hello, world!")
+    val foo = "a"
+    Foo().hello()
 }
